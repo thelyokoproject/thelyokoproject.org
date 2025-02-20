@@ -1,0 +1,307 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 45 100% 50%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 45 100% 95%; /* Gold text in dark mode */
+    --card: 240 10% 3.9%;
+    --card-foreground: 45 100% 95%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 45 100% 95%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 45 100% 95%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 45 100% 80%;
+    --accent: 45 100% 50%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 45 100% 95%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 45 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Liquid Animations */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Enhanced Liquid Animations */
+.liquid-button {
+  position: relative;
+  background: linear-gradient(var(--gradient-angle), hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: liquid-morph 8s ease-in-out infinite;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.liquid-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from var(--angle), hsl(var(--primary)), hsl(var(--primary) / 0.2), hsl(var(--primary)));
+  border-radius: inherit;
+  animation: rotate 4s linear infinite;
+  z-index: -1;
+}
+
+.liquid-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  border-radius: inherit;
+  opacity: 0.8;
+}
+
+.liquid-button-outline {
+  position: relative;
+  overflow: hidden;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: liquid-morph 8s ease-in-out infinite;
+  border: 2px solid hsl(var(--primary) / 0.2);
+  background: transparent;
+}
+
+.liquid-button-outline::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from var(--angle),
+    hsl(var(--primary) / 0.2),
+    hsl(var(--primary) / 0.1),
+    hsl(var(--primary) / 0.2)
+  );
+  border-radius: inherit;
+  animation: rotate 4s linear infinite;
+  z-index: -1;
+}
+
+/* Interactive Hover Effects */
+.interactive-hover {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.interactive-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--primary) / 0.1);
+  opacity: 0;
+  transition: all 0.3s ease;
+  border-radius: inherit;
+}
+
+.interactive-hover:hover::after {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Enhanced Glass Effect */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .glass-morphism {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.1);
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Improved Animations */
+@keyframes liquid-morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@keyframes rotate {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes gradient-rotate {
+  from {
+    --gradient-angle: 0deg;
+  }
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+/* Scroll Animations */
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glass Effects */
+.glass {
+  @apply backdrop-blur-md bg-background/50;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  border-color: rgba(255, 215, 0, 0.1);
+}
+
+/* Typography */
+.text-space {
+  font-family: var(--font-space);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}
+
+/* Theme Transitions */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Grid Background */
+.grid-background {
+  background-image: linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Marketing Sections */
+.marketing-section {
+  @apply py-16 md:py-24;
+}
+
+.section-title {
+  @apply text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-space mb-4;
+}
+
+.section-description {
+  @apply text-muted-foreground md:text-lg mb-8 font-mono;
+}
+
+/* Enhanced Liquid Animations */
+.liquid-button-enhanced {
+  position: relative;
+  background: linear-gradient(var(--gradient-angle), hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: liquid-morph 8s ease-in-out infinite;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.liquid-button-enhanced:hover {
+  border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px hsl(var(--primary) / 0.3);
+}
+
+.liquid-button-enhanced::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from var(--angle), hsl(var(--primary)), hsl(var(--primary) / 0.2), hsl(var(--primary)));
+  border-radius: inherit;
+  animation: rotate 4s linear infinite;
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-button-outline-enhanced {
+  position: relative;
+  overflow: hidden;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: liquid-morph 8s ease-in-out infinite;
+  border: 2px solid hsl(var(--primary) / 0.2);
+  background: transparent;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-button-outline-enhanced:hover {
+  border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  border-color: hsl(var(--primary));
+  transform: scale(1.05);
+  box-shadow: 0 0 30px hsl(var(--primary) / 0.2);
+}
+
